@@ -29,8 +29,17 @@ app.get("/quotes", function (request, response) {
 app.get("/quotes/random", function (request, response) {
   const randomQuote = pickFromArray(quotes)
   response.send(randomQuote)
-
 });
+
+app.get("/quotes/search",function(request, response){
+  const searchTerm = request.query.term.toLowerCase();
+  const searchQuotes = quotes.filter((quoteObj)=>{
+    const lowerCaseQuote= quoteObj.quote.toLowerCase();
+    const lowerCaseAuthor = quoteObj.author.toLocaleLowerCase();
+    return lowerCaseQuote.includes(searchTerm)|| lowerCaseAuthor.includes(searchTerm);
+  });
+  response.send(searchQuotes);
+})
 
 //...END OF YOUR CODE
 

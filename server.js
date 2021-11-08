@@ -1,6 +1,7 @@
 const {
   response
 } = require("express");
+const lodash = require('lodash');
 
 
 
@@ -31,6 +32,7 @@ app.get("/quotes/random", function (request, response) {
   response.send(randomQuote)
 });
 
+
 app.get("/quotes/search",function(request, response){
   const searchTerm = request.query.term.toLowerCase();
   const searchQuotes = quotes.filter((quoteObj)=>{
@@ -40,6 +42,12 @@ app.get("/quotes/search",function(request, response){
   });
   response.send(searchQuotes);
 })
+
+//extra LODASH
+app.get("/quotes/randomextra", function (request, response) {
+  const randomQuote = lodash.sample(quotes)
+  response.send(randomQuote)
+});
 
 //...END OF YOUR CODE
 
